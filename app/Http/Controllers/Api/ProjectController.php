@@ -13,7 +13,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with('type', 'technologys')->paginate(5);
+        $projects = Project::with('type', 'technologys')->paginate(6);
 
         return response()->json($projects);
     }
@@ -31,7 +31,9 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $project = Project::find($id)->with('type', 'technologys')->first();
+        if (!$project) return response(null, 404);
+        return response()->json($project);
     }
 
     /**
